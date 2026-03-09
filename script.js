@@ -157,6 +157,57 @@ function type() {
 
 type();
 
+/* ---------- Render project cards from projects.js ---------- */
+
+/* Escape HTML special characters to prevent XSS */
+function esc(str) {
+  return String(str)
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#39;');
+}
+
+/* Only allow http/https URLs and plain relative paths */
+function safeHref(href) {
+  const s = String(href);
+  if (/^https?:\/\//i.test(s) || /^[a-zA-Z0-9._/~-]/.test(s)) return s;
+  return '#';
+}
+
+/* Script loads at end of <body> so DOM is ready when this runs */
+function renderProjects() {
+  const grid = document.getElementById('projects-grid');
+  if (!grid || typeof PROJECTS === 'undefined') return;
+
+  grid.innerHTML = PROJECTS.map((p, i) => {
+    const ghostClass = p.ghost ? ' card--ghost' : '';
+    const linksHtml = (p.links && p.links.length)
+      ? `<div class="card-links">
+          ${p.links.map(l => {
+            const href  = safeHref(l.href);
+            const ext   = /^https?:\/\//i.test(href) ? ' target="_blank" rel="noopener"' : '';
+            const dim   = l.dim ? ' card-link--dim' : '';
+            return `<a href="${esc(href)}"${ext} class="card-link${dim}">${esc(l.label)} &rarr;</a>`;
+          }).join('\n          ')}
+        </div>`
+      : '';
+
+    return `<article class="card${ghostClass}" data-index="${i}">
+        <div class="card-accent"></div>
+        <div class="card-body">
+          <span class="card-tag">${esc(p.tag)}</span>
+          <h3 class="card-title">${esc(p.title)}</h3>
+          <p class="card-desc">${esc(p.desc)}</p>
+          ${linksHtml}
+        </div>
+      </article>`;
+  }).join('\n');
+}
+
+renderProjects();
+
 /* ---------- Scroll-reveal cards & sections ---------- */
 const revealObserver = new IntersectionObserver(
   (entries) => {

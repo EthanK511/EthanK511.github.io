@@ -23,9 +23,6 @@
         <a href="#contact" class="btn btn-ghost">Get in Touch</a>
       </div>
     </div>
-    <div class="scroll-hint">
-      <span class="scroll-line"></span>
-    </div>
   </section>
 
   <!-- Projects -->
@@ -34,43 +31,8 @@
       <h2 class="section-title">Projects</h2>
       <p class="section-subtitle">Things I've built</p>
     </div>
-    <div class="projects-grid">
-
-      <article class="card" data-index="0">
-        <div class="card-accent"></div>
-        <div class="card-body">
-          <span class="card-tag">Web App</span>
-          <h3 class="card-title">Climate Action Team</h3>
-          <p class="card-desc">
-            A collaborative platform for climate activists — explore, discover,
-            and connect over all things environmental.
-          </p>
-          <div class="card-links">
-            <a href="https://cat.cateam.me" target="_blank" rel="noopener" class="card-link">Live Site &rarr;</a>
-            <a href="cat-website/" class="card-link card-link--dim">Local Mirror &rarr;</a>
-          </div>
-        </div>
-      </article>
-
-      <!-- Placeholder cards — add more projects here -->
-      <article class="card card--ghost" data-index="1">
-        <div class="card-accent"></div>
-        <div class="card-body">
-          <span class="card-tag">Coming Soon</span>
-          <h3 class="card-title">Next Project</h3>
-          <p class="card-desc">Something new is in the works. Check back soon.</p>
-        </div>
-      </article>
-
-      <article class="card card--ghost" data-index="2">
-        <div class="card-accent"></div>
-        <div class="card-body">
-          <span class="card-tag">Coming Soon</span>
-          <h3 class="card-title">In Progress</h3>
-          <p class="card-desc">Another project currently being crafted.</p>
-        </div>
-      </article>
-
+    <div class="projects-grid" id="projects-grid">
+      <!-- Cards are rendered from projects.js — edit that file to add/change projects -->
     </div>
   </section>
 
@@ -117,6 +79,7 @@
     <p>Built by Ethan K &mdash; <span id="year"></span></p>
   </footer>
 
+  <script src="projects.js"></script>
   <script src="script.js"></script>
 </body>
 </html>
