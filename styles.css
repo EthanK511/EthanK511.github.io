@@ -42,60 +42,17 @@ a {
 }
 
 /* ============================================================
-   Navigation
+   Canvas background
    ============================================================ */
-.nav {
+#bg-canvas {
   position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  z-index: 100;
-  padding: 1.25rem 2rem;
-  transition: background var(--transition), backdrop-filter var(--transition);
-}
-
-.nav.scrolled {
-  background: rgba(8, 9, 14, 0.8);
-  backdrop-filter: blur(12px);
-  border-bottom: 1px solid var(--border);
-}
-
-.nav-inner {
-  max-width: 1100px;
-  margin: 0 auto;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-
-.nav-logo {
-  font-size: 1.1rem;
-  font-weight: 700;
-  letter-spacing: 0.05em;
-  background: linear-gradient(135deg, var(--blue), var(--purple));
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-}
-
-.nav-links {
-  display: flex;
-  gap: 2rem;
-  list-style: none;
-}
-
-.nav-links a {
-  font-size: 0.9rem;
-  color: var(--text-muted);
-  transition: color var(--transition);
-}
-
-.nav-links a:hover {
-  color: var(--text);
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
 }
 
 /* ============================================================
-   Buttons
+   Buttons — glass / translucent
    ============================================================ */
 .btn {
   display: inline-block;
@@ -104,8 +61,10 @@ a {
   font-size: 0.9rem;
   font-weight: 500;
   cursor: pointer;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
   transition: transform var(--transition), box-shadow var(--transition),
-              background var(--transition), opacity var(--transition);
+              background var(--transition), border-color var(--transition);
 }
 
 .btn:hover {
@@ -113,23 +72,29 @@ a {
 }
 
 .btn-primary {
-  background: linear-gradient(135deg, var(--blue), var(--purple));
-  color: #fff;
-  box-shadow: 0 0 20px rgba(59, 130, 246, 0.3);
+  background: rgba(59, 130, 246, 0.18);
+  border: 1px solid rgba(59, 130, 246, 0.45);
+  color: #a0c4ff;
+  box-shadow: 0 0 18px rgba(59, 130, 246, 0.15),
+              inset 0 0 0 1px rgba(168, 85, 247, 0.15);
 }
 
 .btn-primary:hover {
-  box-shadow: 0 0 30px rgba(59, 130, 246, 0.5);
+  background: rgba(59, 130, 246, 0.28);
+  border-color: rgba(168, 85, 247, 0.55);
+  box-shadow: 0 0 28px rgba(59, 130, 246, 0.3),
+              inset 0 0 0 1px rgba(168, 85, 247, 0.25);
 }
 
 .btn-ghost {
-  border: 1px solid var(--border);
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.1);
   color: var(--text-muted);
-  background: transparent;
 }
 
 .btn-ghost:hover {
-  border-color: var(--blue);
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(59, 130, 246, 0.4);
   color: var(--text);
 }
 
@@ -142,8 +107,8 @@ a {
   align-items: center;
   justify-content: center;
   position: relative;
-  overflow: hidden;
-  padding: 8rem 2rem 4rem;
+  z-index: 1;
+  padding: 2rem;
 }
 
 .hero-content {
@@ -196,24 +161,6 @@ a {
   flex-wrap: wrap;
 }
 
-/* Ambient glow */
-.hero-glow {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -60%);
-  width: 700px;
-  height: 700px;
-  background: radial-gradient(
-    ellipse at center,
-    rgba(59, 130, 246, 0.08) 0%,
-    rgba(168, 85, 247, 0.06) 40%,
-    transparent 70%
-  );
-  pointer-events: none;
-  z-index: 1;
-}
-
 /* Scroll hint */
 .scroll-hint {
   position: absolute;
@@ -242,6 +189,8 @@ a {
    ============================================================ */
 section {
   padding: 7rem 2rem;
+  position: relative;
+  z-index: 1;
 }
 
 .section-header {
@@ -517,10 +466,6 @@ section {
   .about-inner {
     grid-template-columns: 1fr;
     gap: 2.5rem;
-  }
-
-  .nav-links {
-    gap: 1.25rem;
   }
 
   .hero-cta {

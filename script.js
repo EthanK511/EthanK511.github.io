@@ -2,6 +2,124 @@
    script.js — Portfolio interactions
    ============================================================ */
 
+/* ---------- 3D geometric background canvas ---------- */
+const canvas = document.getElementById('bg-canvas');
+const ctx    = canvas.getContext('2d');
+let W = 0, H = 0;
+
+function resize() {
+  const prevW = W, prevH = H;
+  W = canvas.width  = window.innerWidth;
+  H = canvas.height = window.innerHeight;
+  /* Rescale existing shape positions proportionally when the window resizes */
+  if (prevW && prevH) {
+    const scaleX = W / prevW, scaleY = H / prevH;
+    for (const s of shapes) { s.x *= scaleX; s.y *= scaleY; }
+  }
+}
+
+/* 3D shape vertex / edge data */
+const TETRA_VERTS = [[1,1,1],[1,-1,-1],[-1,1,-1],[-1,-1,1]];
+const TETRA_EDGES = [[0,1],[0,2],[0,3],[1,2],[1,3],[2,3]];
+const OCTA_VERTS  = [[1,0,0],[-1,0,0],[0,1,0],[0,-1,0],[0,0,1],[0,0,-1]];
+const OCTA_EDGES  = [[0,2],[0,3],[0,4],[0,5],[1,2],[1,3],[1,4],[1,5],[2,4],[2,5],[3,4],[3,5]];
+
+function rotateVert(v, rx, ry, rz) {
+  let [x, y, z] = v;
+  let cy = Math.cos(ry), sy = Math.sin(ry);
+  [x, z] = [x * cy - z * sy, x * sy + z * cy];
+  let cx = Math.cos(rx), sx = Math.sin(rx);
+  [y, z] = [y * cx - z * sx, y * sx + z * cx];
+  let cz = Math.cos(rz), sz = Math.sin(rz);
+  [x, y] = [x * cz - y * sz, x * sz + y * cz];
+  return [x, y, z];
+}
+
+function project(v, fov) {
+  const p = fov / (fov + v[2]);
+  return [v[0] * p, v[1] * p];
+}
+
+/* Alpha mask: strong at left/right edges, fades to transparent at center;
+   top and bottom edges are capped at 50% opacity. */
+function shapeAlpha(cx, cy) {
+  const nx = cx / W;
+  const ny = cy / H;
+  const hAlpha = Math.pow(Math.abs(nx * 2 - 1), 1.4);
+  const vAlpha = 0.5 + 0.5 * (1 - Math.pow(Math.abs(ny * 2 - 1), 2));
+  return hAlpha * vAlpha;
+}
+
+/* Build shape pool — initialized after first resize() so W/H are valid */
+const PALETTE = ['59,130,246', '168,85,247', '110,160,255'];
+const SHAPE_COUNT = 24;
+const shapes = [];
+
+function initShapes() {
+  shapes.length = 0;
+  for (let i = 0; i < SHAPE_COUNT; i++) {
+    shapes.push({
+      x:        Math.random() * W,
+      y:        Math.random() * H,
+      vx:       (Math.random() - 0.5) * 0.18,
+      vy:       (Math.random() - 0.5) * 0.18,
+      scale:    22 + Math.random() * 55,
+      rx:       Math.random() * Math.PI * 2,
+      ry:       Math.random() * Math.PI * 2,
+      rz:       Math.random() * Math.PI * 2,
+      drx:      (Math.random() - 0.5) * 0.005,
+      dry:      (Math.random() - 0.5) * 0.006,
+      drz:      (Math.random() - 0.5) * 0.004,
+      type:     i % 3 === 0 ? 'octa' : 'tetra',
+      color:    PALETTE[i % PALETTE.length],
+      maxAlpha: 0.35 + Math.random() * 0.45,
+    });
+  }
+}
+
+/* Initialize canvas size first, then shapes */
+resize();
+initShapes();
+window.addEventListener('resize', resize, { passive: true });
+
+function drawShape(s) {
+  const verts = s.type === 'tetra' ? TETRA_VERTS : OCTA_VERTS;
+  const edges = s.type === 'tetra' ? TETRA_EDGES : OCTA_EDGES;
+
+  const projected = verts.map((v) => {
+    const r = rotateVert(v, s.rx, s.ry, s.rz);
+    const p = project(r, 320);
+    return [s.x + p[0] * s.scale, s.y + p[1] * s.scale];
+  });
+
+  const alpha = shapeAlpha(s.x, s.y) * s.maxAlpha;
+  if (alpha < 0.012) return;
+
+  ctx.strokeStyle = `rgba(${s.color},${alpha})`;
+  ctx.lineWidth   = 0.9;
+  ctx.beginPath();
+  for (const [a, b] of edges) {
+    ctx.moveTo(projected[a][0], projected[a][1]);
+    ctx.lineTo(projected[b][0], projected[b][1]);
+  }
+  ctx.stroke();
+}
+
+function animateCanvas() {
+  ctx.clearRect(0, 0, W, H);
+  for (const s of shapes) {
+    drawShape(s);
+    s.x  += s.vx;  s.y  += s.vy;
+    s.rx += s.drx; s.ry += s.dry; s.rz += s.drz;
+    if (s.x < -120) s.x = W + 120;
+    if (s.x > W + 120) s.x = -120;
+    if (s.y < -120) s.y = H + 120;
+    if (s.y > H + 120) s.y = -120;
+  }
+  requestAnimationFrame(animateCanvas);
+}
+animateCanvas();
+
 /* ---------- Typed tagline ---------- */
 const phrases = [
   'Building things for the web.',
@@ -39,13 +157,6 @@ function type() {
 
 type();
 
-/* ---------- Nav shadow on scroll ---------- */
-const nav = document.getElementById('nav');
-
-window.addEventListener('scroll', () => {
-  nav.classList.toggle('scrolled', window.scrollY > 20);
-}, { passive: true });
-
 /* ---------- Scroll-reveal cards & sections ---------- */
 const revealObserver = new IntersectionObserver(
   (entries) => {
@@ -68,24 +179,3 @@ document.querySelectorAll('.card, .fade-up').forEach((el) => {
 /* ---------- Footer year ---------- */
 document.getElementById('year').textContent = new Date().getFullYear();
 
-/* ---------- Subtle cursor-follow glow on hero ---------- */
-const heroGlow = document.querySelector('.hero-glow');
-const hero = document.querySelector('.hero');
-
-if (heroGlow && hero) {
-  hero.addEventListener('mousemove', (e) => {
-    const rect = hero.getBoundingClientRect();
-    const x = ((e.clientX - rect.left) / rect.width) * 100;
-    const y = ((e.clientY - rect.top) / rect.height) * 100;
-    heroGlow.style.background = `radial-gradient(
-      ellipse at ${x}% ${y}%,
-      rgba(59, 130, 246, 0.1) 0%,
-      rgba(168, 85, 247, 0.07) 40%,
-      transparent 70%
-    )`;
-  });
-
-  hero.addEventListener('mouseleave', () => {
-    heroGlow.style.background = '';
-  });
-}
