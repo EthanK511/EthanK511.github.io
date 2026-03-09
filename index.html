@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>EthanK-511</title>
+  <link rel="icon" href="favicon.svg" type="image/svg+xml" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+  <!-- 3D geometric canvas background -->
+  <canvas id="bg-canvas"></canvas>
+
+  <!-- Hero -->
+  <section class="hero" id="hero">
+    <div class="hero-content">
+      <p class="hero-eyebrow">Hey, I'm</p>
+      <h1 class="hero-name">Ethan K<span class="cursor">|</span></h1>
+      <p class="hero-tagline"><span id="typed-text"></span></p>
+      <div class="hero-cta">
+        <a href="#projects" class="btn btn-primary">View Projects</a>
+        <a href="#contact" class="btn btn-ghost">Get in Touch</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Projects -->
+  <section class="projects" id="projects">
+    <div class="section-header">
+      <h2 class="section-title">Projects</h2>
+      <p class="section-subtitle">Things I've built</p>
+    </div>
+    <div class="projects-grid" id="projects-grid">
+      <!-- Cards are rendered from projects.js — edit that file to add/change projects -->
+    </div>
+  </section>
+
+  <!-- About -->
+  <section class="about" id="about">
+    <div class="about-inner">
+      <div class="about-text">
+        <h2 class="section-title">About</h2>
+        <p>
+          I'm a developer who enjoys building clean, purposeful things for the web.
+          I care about good design, smooth experiences, and writing code that holds up.
+        </p>
+        <p>
+          When I'm not coding, you'll probably find me exploring new ideas, tinkering
+          with side projects, or spending time with cats.
+        </p>
+      </div>
+      <div class="about-stack">
+        <h3>Stack</h3>
+        <ul class="stack-list">
+          <li>HTML / CSS / JS</li>
+          <li>TypeScript</li>
+          <li>React</li>
+          <li>Node.js</li>
+          <li>Git</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact -->
+  <section class="contact" id="contact">
+    <div class="contact-inner">
+      <h2 class="section-title">Get in Touch</h2>
+      <p class="contact-sub">Have a project in mind or just want to say hi? Reach out.</p>
+      <a href="mailto:hello@cateam.me" class="btn btn-primary">Send a Message</a>
+      <div class="social-links">
+        <a href="https://github.com/EthanK511" target="_blank" rel="noopener">GitHub</a>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <p>Built by Ethan K &mdash; <span id="year"></span></p>
+  </footer>
+
+  <script src="projects.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
