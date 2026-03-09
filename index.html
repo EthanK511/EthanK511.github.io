@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Ethan K — Portfolio</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+  <!-- Navigation -->
+  <nav class="nav" id="nav">
+    <div class="nav-inner">
+      <span class="nav-logo">EK</span>
+      <ul class="nav-links">
+        <li><a href="#projects">Projects</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- Hero -->
+  <section class="hero" id="hero">
+    <div class="hero-content">
+      <p class="hero-eyebrow">Hey, I'm</p>
+      <h1 class="hero-name">Ethan K<span class="cursor">|</span></h1>
+      <p class="hero-tagline"><span id="typed-text"></span></p>
+      <div class="hero-cta">
+        <a href="#projects" class="btn btn-primary">View Projects</a>
+        <a href="#contact" class="btn btn-ghost">Get in Touch</a>
+      </div>
+    </div>
+    <div class="hero-glow"></div>
+    <div class="scroll-hint">
+      <span class="scroll-line"></span>
+    </div>
+  </section>
+
+  <!-- Projects -->
+  <section class="projects" id="projects">
+    <div class="section-header">
+      <h2 class="section-title">Projects</h2>
+      <p class="section-subtitle">Things I've built</p>
+    </div>
+    <div class="projects-grid">
+
+      <article class="card" data-index="0">
+        <div class="card-accent"></div>
+        <div class="card-body">
+          <span class="card-tag">Web App</span>
+          <h3 class="card-title">CaTeam</h3>
+          <p class="card-desc">
+            A collaborative platform for cat enthusiasts — explore, discover,
+            and connect over all things feline.
+          </p>
+          <div class="card-links">
+            <a href="https://cat.cateam.me" target="_blank" rel="noopener" class="card-link">Live Site &rarr;</a>
+            <a href="cat-website/" class="card-link card-link--dim">Local Mirror &rarr;</a>
+          </div>
+        </div>
+      </article>
+
+      <!-- Placeholder cards — add more projects here -->
+      <article class="card card--ghost" data-index="1">
+        <div class="card-accent"></div>
+        <div class="card-body">
+          <span class="card-tag">Coming Soon</span>
+          <h3 class="card-title">Next Project</h3>
+          <p class="card-desc">Something new is in the works. Check back soon.</p>
+        </div>
+      </article>
+
+      <article class="card card--ghost" data-index="2">
+        <div class="card-accent"></div>
+        <div class="card-body">
+          <span class="card-tag">Coming Soon</span>
+          <h3 class="card-title">In Progress</h3>
+          <p class="card-desc">Another project currently being crafted.</p>
+        </div>
+      </article>
+
+    </div>
+  </section>
+
+  <!-- About -->
+  <section class="about" id="about">
+    <div class="about-inner">
+      <div class="about-text">
+        <h2 class="section-title">About</h2>
+        <p>
+          I'm a developer who enjoys building clean, purposeful things for the web.
+          I care about good design, smooth experiences, and writing code that holds up.
+        </p>
+        <p>
+          When I'm not coding, you'll probably find me exploring new ideas, tinkering
+          with side projects, or spending time with cats.
+        </p>
+      </div>
+      <div class="about-stack">
+        <h3>Stack</h3>
+        <ul class="stack-list">
+          <li>HTML / CSS / JS</li>
+          <li>TypeScript</li>
+          <li>React</li>
+          <li>Node.js</li>
+          <li>Git</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact -->
+  <section class="contact" id="contact">
+    <div class="contact-inner">
+      <h2 class="section-title">Get in Touch</h2>
+      <p class="contact-sub">Have a project in mind or just want to say hi? Reach out.</p>
+      <a href="mailto:hello@cateam.me" class="btn btn-primary">Send a Message</a>
+      <div class="social-links">
+        <a href="https://github.com/EthanK511" target="_blank" rel="noopener">GitHub</a>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <p>Built by Ethan K &mdash; <span id="year"></span></p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
