@@ -1,85 +1,241 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>EthanK-511</title>
-  <link rel="icon" href="favicon.svg" type="image/svg+xml" />
-  <link rel="stylesheet" href="styles.css" />
-</head>
-<body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="refresh" content="3; url=https://cat.cateam.me" />
+    <title>Climate Action Team — Redirecting…</title>
+    <link rel="icon" type="image/svg+xml" href="https://cat.cateam.me/assets/images/favicon.svg" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+    <style>
+      :root {
+        --primary-color: #2d6a4f;
+        --primary-dark: #1b4332;
+        --primary-light: #40916c;
+        --secondary-color: #52b788;
+        --accent-color: #95d5b2;
+        --text-dark: #1a1a1a;
+        --text-light: #4a4a4a;
+        --background: #ffffff;
+        --background-light: #f8f9fa;
+      }
 
-  <!-- 3D geometric canvas background -->
-  <canvas id="bg-canvas"></canvas>
+      *, *::before, *::after {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
 
-  <!-- Hero -->
-  <section class="hero" id="hero">
-    <div class="hero-content">
-      <p class="hero-eyebrow">Hey, I'm</p>
-      <h1 class="hero-name">Ethan K<span class="cursor">|</span></h1>
-      <p class="hero-tagline"><span id="typed-text"></span></p>
-      <div class="hero-cta">
-        <a href="#projects" class="btn btn-primary">View Projects</a>
-        <a href="#contact" class="btn btn-ghost">Get in Touch</a>
+      body {
+        font-family: 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+        background: var(--background);
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        color: var(--text-dark);
+        overflow: hidden;
+      }
+
+      /* ── Background blobs ── */
+      .blob-container {
+        position: fixed;
+        inset: 0;
+        z-index: 0;
+        overflow: hidden;
+        pointer-events: none;
+      }
+
+      .hero-blob {
+        position: absolute;
+        border-radius: 50%;
+        filter: blur(80px);
+        opacity: 0.12;
+      }
+
+      .hero-blob--1 {
+        width: 500px;
+        height: 500px;
+        background: var(--primary-color);
+        top: -100px;
+        left: -100px;
+        animation: blobDrift 18s ease-in-out infinite;
+      }
+
+      .hero-blob--2 {
+        width: 400px;
+        height: 400px;
+        background: var(--secondary-color);
+        top: 50%;
+        right: -120px;
+        transform: translateY(-50%);
+        animation: blobDrift 22s ease-in-out infinite reverse;
+      }
+
+      .hero-blob--3 {
+        width: 300px;
+        height: 300px;
+        background: var(--accent-color);
+        bottom: -80px;
+        left: 50%;
+        transform: translateX(-50%);
+        animation: blobDrift 15s ease-in-out infinite 3s;
+      }
+
+      /* ── Card ── */
+      .card {
+        position: relative;
+        z-index: 1;
+        background: #ffffff;
+        border-radius: 20px;
+        box-shadow: 0 20px 60px rgba(45, 106, 79, 0.2);
+        max-width: 480px;
+        width: calc(100% - 2rem);
+        padding: 3rem 2.5rem;
+        text-align: center;
+        animation: fadeInUp 0.8s ease-out both;
+      }
+
+      /* ── Emoji ── */
+      .leaf-emoji {
+        font-size: 4rem;
+        display: block;
+        margin-bottom: 1.25rem;
+        animation: float 3s ease-in-out infinite;
+        line-height: 1;
+      }
+
+      /* ── Heading ── */
+      .card-title {
+        font-size: clamp(1.5rem, 5vw, 2rem);
+        font-weight: 800;
+        background: linear-gradient(135deg, #1b4332 0%, #2d6a4f 50%, #52b788 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        margin-bottom: 0.75rem;
+        line-height: 1.2;
+      }
+
+      /* ── Subtitle ── */
+      .card-subtitle {
+        font-size: 0.95rem;
+        color: var(--text-light);
+        font-weight: 400;
+        margin-bottom: 2rem;
+        line-height: 1.6;
+      }
+
+      /* ── Spinner ── */
+      .spinner-wrap {
+        display: flex;
+        justify-content: center;
+        margin-bottom: 2rem;
+      }
+
+      .spinner {
+        width: 44px;
+        height: 44px;
+        border: 4px solid var(--accent-color);
+        border-top-color: var(--primary-color);
+        border-radius: 50%;
+        animation: spin 0.9s linear infinite;
+      }
+
+      /* ── Button ── */
+      .btn {
+        display: inline-block;
+        text-decoration: none;
+        font-family: inherit;
+        font-size: 0.95rem;
+        font-weight: 600;
+        padding: 0.75rem 1.75rem;
+        border-radius: 9999px;
+        cursor: pointer;
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+      }
+
+      .btn-primary {
+        background: var(--primary-color);
+        color: #ffffff;
+        box-shadow: 0 4px 15px rgba(45, 106, 79, 0.3);
+      }
+
+      .btn-primary:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 8px 25px rgba(45, 106, 79, 0.4);
+      }
+
+      /* ── Footer ── */
+      .page-footer {
+        position: relative;
+        z-index: 1;
+        margin-top: 2rem;
+        font-size: 0.8rem;
+        color: var(--text-light);
+      }
+
+      /* ── Animations ── */
+      @keyframes fadeInUp {
+        from {
+          opacity: 0;
+          transform: translateY(30px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      @keyframes float {
+        0%, 100% { transform: translateY(0); }
+        50%       { transform: translateY(-15px); }
+      }
+
+      @keyframes blobDrift {
+        0%, 100% { transform: translate(0, 0) scale(1); }
+        33%      { transform: translate(30px, -30px) scale(1.05); }
+        66%      { transform: translate(-20px, 20px) scale(0.97); }
+      }
+
+      @keyframes spin {
+        to { transform: rotate(360deg); }
+      }
+    </style>
+  </head>
+  <body>
+
+    <!-- Background blobs -->
+    <div class="blob-container" aria-hidden="true">
+      <div class="hero-blob hero-blob--1"></div>
+      <div class="hero-blob hero-blob--2"></div>
+      <div class="hero-blob hero-blob--3"></div>
+    </div>
+
+    <!-- Splash card -->
+    <main class="card" role="main">
+      <span class="leaf-emoji" aria-hidden="true">🌱</span>
+      <h1 class="card-title">Climate Action Team</h1>
+      <p class="card-subtitle">You're being redirected to our website…</p>
+      <div class="spinner-wrap" aria-label="Loading">
+        <div class="spinner"></div>
       </div>
-    </div>
-  </section>
+      <a href="https://cat.cateam.me" class="btn btn-primary">Go to cat.cateam.me →</a>
+    </main>
 
-  <!-- Projects -->
-  <section class="projects" id="projects">
-    <div class="section-header">
-      <h2 class="section-title">Projects</h2>
-      <p class="section-subtitle">Things I've built</p>
-    </div>
-    <div class="projects-grid" id="projects-grid">
-      <!-- Cards are rendered from projects.js — edit that file to add/change projects -->
-    </div>
-  </section>
+    <!-- Footer -->
+    <footer class="page-footer">
+      <p>© 2026 Climate Action Team</p>
+    </footer>
 
-  <!-- About -->
-  <section class="about" id="about">
-    <div class="about-inner">
-      <div class="about-text">
-        <h2 class="section-title">About</h2>
-        <p>
-          I'm a developer who enjoys building clean, purposeful things for the web.
-          I care about good design, smooth experiences, and writing code that holds up.
-        </p>
-        <p>
-          When I'm not coding, you'll probably find me exploring new ideas, tinkering
-          with side projects, or spending time with cats.
-        </p>
-      </div>
-      <div class="about-stack">
-        <h3>Stack</h3>
-        <ul class="stack-list">
-          <li>HTML / CSS / JS</li>
-          <li>TypeScript</li>
-          <li>React</li>
-          <li>Node.js</li>
-          <li>Git</li>
-        </ul>
-      </div>
-    </div>
-  </section>
+    <script>
+      setTimeout(function () {
+        window.location.href = 'https://cat.cateam.me';
+      }, 3000);
+    </script>
 
-  <!-- Contact -->
-  <section class="contact" id="contact">
-    <div class="contact-inner">
-      <h2 class="section-title">Get in Touch</h2>
-      <p class="contact-sub">Have a project in mind or just want to say hi? Reach out.</p>
-      <a href="mailto:hello@cateam.me" class="btn btn-primary">Send a Message</a>
-      <div class="social-links">
-        <a href="https://github.com/EthanK511" target="_blank" rel="noopener">GitHub</a>
-      </div>
-    </div>
-  </section>
-
-  <footer class="footer">
-    <p>Built by Ethan K &mdash; <span id="year"></span></p>
-  </footer>
-
-  <script src="projects.js"></script>
-  <script src="script.js"></script>
-</body>
+  </body>
 </html>
