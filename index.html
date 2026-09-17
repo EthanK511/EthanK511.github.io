@@ -1,85 +1,59 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>EthanK-511</title>
-  <link rel="icon" href="favicon.svg" type="image/svg+xml" />
-  <link rel="stylesheet" href="styles.css" />
-</head>
-<body>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Ethan K.'s personal website.">
+    <title>HackerCat</title>
+    <link rel="icon" href="ethanlogo.png" type="image/png">
+    <link rel="stylesheet" href="styles.css">
+  </head>
+  <body>
+    <aside class="sidebar" aria-label="Main navigation">
+      <a class="logo" href="#about" aria-label="Ethan K. home">
+        <img class="logo-mark" src="ethanlogo.png" alt="Ethan K. logo" />
+      </a>
+      <nav>
+        <a href="#about">About</a>
+        <a href="#projects">Projects</a>
+      </nav>
+    </aside>
 
-  <!-- 3D geometric canvas background -->
-  <canvas id="bg-canvas"></canvas>
+    <main>
+      <section id="about" class="section about" aria-labelledby="about-title">
+        <h1 id="about-title">Hi, I'm Ethan.</h1>
+        <p class="eyebrow">I like cats, and i make some cool things with <a class="text-link" href="https://hackclub.com">Hack CLub</a></p>
+        <a class="text-link" href="https://github.com/EthanK511">My GitHub <span aria-hidden="true">-&gt;</span></a>
+      </section>
 
-  <!-- Hero -->
-  <section class="hero" id="hero">
-    <div class="hero-content">
-      <p class="hero-eyebrow">Hey, I'm</p>
-      <h1 class="hero-name">Ethan K<span class="cursor">|</span></h1>
-      <p class="hero-tagline"><span id="typed-text"></span></p>
-      <div class="hero-cta">
-        <a href="#projects" class="btn btn-primary">View Projects</a>
-        <a href="#contact" class="btn btn-ghost">Get in Touch</a>
-      </div>
-    </div>
-  </section>
+      <section id="projects" class="section" aria-labelledby="projects-title">
+        <p class="eyebrow">Selected work</p>
+        <h2 id="projects-title">Projects</h2>
 
-  <!-- Projects -->
-  <section class="projects" id="projects">
-    <div class="section-header">
-      <h2 class="section-title">Projects</h2>
-      <p class="section-subtitle">Things I've built</p>
-    </div>
-    <div class="projects-grid" id="projects-grid">
-      <!-- Cards are rendered from projects.js — edit that file to add/change projects -->
-    </div>
-  </section>
+        <article class="project">
+          <div>
+            <h3><a href="https://cateam.me" target="_blank" rel="noreferrer">CAT website</a></h3>
+            <p>The website for my school’s Climate Action Team. Built to share updates, projects, and local climate action.</p>
+          </div>
+          <span class="project-status"><a href="https://github.com/EthanK511/cat-website" target="_blank" rel="noreferrer">GitHub</a></span>
+        </article>
 
-  <!-- About -->
-  <section class="about" id="about">
-    <div class="about-inner">
-      <div class="about-text">
-        <h2 class="section-title">About</h2>
-        <p>
-          I'm a developer who enjoys building clean, purposeful things for the web.
-          I care about good design, smooth experiences, and writing code that holds up.
-        </p>
-        <p>
-          When I'm not coding, you'll probably find me exploring new ideas, tinkering
-          with side projects, or spending time with cats.
-        </p>
-      </div>
-      <div class="about-stack">
-        <h3>Stack</h3>
-        <ul class="stack-list">
-          <li>HTML / CSS / JS</li>
-          <li>TypeScript</li>
-          <li>React</li>
-          <li>Node.js</li>
-          <li>Git</li>
-        </ul>
-      </div>
-    </div>
-  </section>
+        <article class="project">
+          <div>
+            <h3><a href="https://e3nk.dev" target="_blank" rel="noreferrer">My personal website</a></h3>
+            <p>This site itself: a minimal landing page for my work, projects, and online presence.</p>
+          </div>
+          <span class="project-status"><a href="https://github.com/EthanK511/EthanK511.github.io" target="_blank" rel="noreferrer">GitHub</a></span>
+        </article>
 
-  <!-- Contact -->
-  <section class="contact" id="contact">
-    <div class="contact-inner">
-      <h2 class="section-title">Get in Touch</h2>
-      <p class="contact-sub">Have a project in mind or just want to say hi? Reach out.</p>
-      <a href="mailto:hello@cateam.me" class="btn btn-primary">Send a Message</a>
-      <div class="social-links">
-        <a href="https://github.com/EthanK511" target="_blank" rel="noopener">GitHub</a>
-      </div>
-    </div>
-  </section>
-
-  <footer class="footer">
-    <p>Built by Ethan K &mdash; <span id="year"></span></p>
-  </footer>
-
-  <script src="projects.js"></script>
-  <script src="script.js"></script>
-</body>
+        <article class="project">
+          <div>
+            <h3><a href="https://co2-cloud.web.app/" target="_blank" rel="noreferrer">AQM2</a></h3>
+            <p>An open-source air quality monitor designed to track national patterns over time and help predict future air quality issues.</p>
+          </div>
+          <span class="project-status"><a href="https://github.com/EthanK511/aqm2" target="_blank" rel="noreferrer">GitHub</a></span>
+        </article>
+      </section>
+    </main>
+  </body>
 </html>
